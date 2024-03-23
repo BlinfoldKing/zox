@@ -73,12 +73,12 @@ pub const Token = struct {
 
     literal: ?Literal,
     pub fn format(self: Token, _: []const u8, _: fmt.FormatOptions, writer: anytype) !void {
-        _ = try fmt.format(writer, "[{s} ", .{@tagName(self.type)});
+        _ = try fmt.format(writer, "[{s}", .{@tagName(self.type)});
 
         switch (self.type) {
-            Type.STRING => _ = try fmt.format(writer, "{s}", .{self.literal.?.string}),
-            Type.NUMBER => _ = try fmt.format(writer, "{d}", .{self.literal.?.number}),
-            Type.IDENTIFIER => _ = try fmt.format(writer, "{s}", .{self.literal.?.identifier}),
+            Type.STRING => _ = try fmt.format(writer, " \"{s}\"", .{self.literal.?.string}),
+            Type.NUMBER => _ = try fmt.format(writer, " {d}", .{self.literal.?.number}),
+            Type.IDENTIFIER => _ = try fmt.format(writer, " {s} ", .{self.literal.?.identifier}),
             else => {},
         }
 

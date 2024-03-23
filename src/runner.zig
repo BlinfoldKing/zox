@@ -23,7 +23,11 @@ pub fn run_file(
         (try file.stat()).size,
     );
 
-    std.debug.print("{s}", .{lines});
+    var s = scanner.init(lines);
+    const res = s.scan(arena.allocator());
+    if (res) |list| {
+        std.debug.print("{any}\n", .{list.items});
+    } else |_| {}
 }
 
 pub fn run_line() !void {
